@@ -1,10 +1,12 @@
-import { createSlice } from '@reduxjs/toolkit'
+import { PayloadAction, createSlice } from '@reduxjs/toolkit'
+import uuid from 'react-uuid'
 
 export interface Profile {
-  firstName: string
+  firstName?: string | undefined
   lastName: string
+  office?: string | undefined
   phoneNumber: number
-  adress: string
+  adress?: string | undefined
   id: string
 }
 
@@ -20,9 +22,19 @@ export const contactSlice = createSlice({
   name: 'contacts',
   initialState,
   reducers: {
-    addContact: {},
-    deleteContact: {},
-    editContact: {},
+    addContact: (state, action: PayloadAction<Profile>) => {
+      const profile: Profile = {
+        firstName: action.payload.firstName,
+        lastName: action.payload.lastName,
+        office: action.payload.office,
+        phoneNumber: action.payload.phoneNumber,
+        adress: action.payload.adress,
+        id: uuid(),
+      }
+      state.contacts.push(profile)
+    },
+    deleteContact: (state, action) => {},
+    editContact: (state, action) => {},
   },
 })
 

@@ -1,7 +1,7 @@
 import React from 'react'
 
 interface ContactProps {
-  firstName: string
+  firstName: string | undefined
   lastName: string
 }
 
