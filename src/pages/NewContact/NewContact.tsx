@@ -1,18 +1,27 @@
-import React, { ChangeEvent, forwardRef, useState } from 'react'
+import React, { ChangeEvent, forwardRef, useRef, useState } from 'react'
 import Nav from '../../components/Nav/Nav'
-import { useDispatch, useSelector } from 'react-redux'
-import { RootState } from '../../app/store'
+import { useDispatch } from 'react-redux'
+
 import { addContact } from '../../redux/contactSlice'
 
-const NewContact = forwardRef((ref) => {
-  const contacts = useSelector((state: RootState) => state.contactList.contacts)
+interface NewContactProps {
+  setAddContactModalOpen: React.Dispatch<React.SetStateAction<boolean>>
+}
+const NewContact = ({ setAddContactModalOpen }: NewContactProps) => {
   const dispatch = useDispatch()
+  const modalBackground = useRef()
+
+  const handleCloseModal = (e: React.MouseEvent) => {
+    if (e.target === modalBackground.current) {
+      setAddContactModalOpen(false)
+    }
+  }
 
   const [profileInfo, setProfileInfo] = useState({
     firstName: '',
     lastName: '',
     office: '',
-    phoneNumber: '',
+    phoneNumber: 0,
     adress: '',
   })
 
@@ -37,10 +46,14 @@ const NewContact = forwardRef((ref) => {
         adress: adress,
       }),
     )
+    setAddContactModalOpen(false)
   }
 
   return (
-    <div style={{ position: 'relative', width: '100vw', height: '100vh' }}>
+    <div
+      onClick={handleCloseModal}
+      style={{ position: 'relative', width: '100vw', height: '100vh' }}
+    >
       <div
         style={{
           position: 'absolute',
@@ -85,16 +98,16 @@ const NewContact = forwardRef((ref) => {
           <div style={{ display: 'flex', flexDirection: 'column', marginBottom: '2rem' }}>
             <input
               type="text"
-              name="firstName"
+              name="lastName"
               placeholder="성"
-              value={firstName}
+              value={lastName}
               onChange={profileInputChange}
             />
             <input
               type="text"
-              name="lastName"
+              name="firstName"
               placeholder="이름"
-              value={lastName}
+              value={firstName}
               onChange={profileInputChange}
             />
             <input
@@ -109,7 +122,7 @@ const NewContact = forwardRef((ref) => {
             type="number"
             name="phoneNumber"
             placeholder="전화번호"
-            value={phoneNumber}
+            value={Number(phoneNumber)}
             onChange={profileInputChange}
           />
           <input
@@ -123,6 +136,6 @@ const NewContact = forwardRef((ref) => {
       </div>
     </div>
   )
-})
+}
 
 export default NewContact

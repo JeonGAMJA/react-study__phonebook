@@ -8,7 +8,7 @@ interface ContactProps {
 const ContactItem = ({ firstName, lastName }: ContactProps) => {
   return (
     <div>
-      <span>{lastName + firstName}</span>
+      <button>{lastName + firstName}</button>
     </div>
   )
 }

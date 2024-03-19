@@ -7,7 +7,7 @@ export interface Profile {
   office?: string | undefined
   phoneNumber: number
   adress?: string | undefined
-  id: string
+  id?: string
 }
 
 export interface ContactState {
