@@ -10,7 +10,7 @@ const ContactListButton = () => {
       <ul>
         {contacts.map((contact) => (
           <ContactItem
-            key={contact.id}
+            contactId={contact.id}
             firstName={contact.firstName}
             lastName={contact.lastName}
           />

@@ -7,7 +7,8 @@ import { addContact } from '../../redux/contactSlice'
 interface NewContactProps {
   setAddContactModalOpen: React.Dispatch<React.SetStateAction<boolean>>
 }
-const NewContact = ({ setAddContactModalOpen }: NewContactProps) => {
+
+const ContactForm = ({ setAddContactModalOpen }: NewContactProps) => {
   const dispatch = useDispatch()
   const modalBackground = useRef<HTMLDivElement>(null)
 
@@ -139,4 +140,4 @@ const NewContact = ({ setAddContactModalOpen }: NewContactProps) => {
   )
 }
 
-export default NewContact
+export default ContactForm

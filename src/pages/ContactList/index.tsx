@@ -1,6 +1,6 @@
 import React from 'react'
 import { useState } from 'react'
-import NewContact from '../../components/NewContact/NewContact'
+import ContactForm from '../../components/ContactForm/ContactForm'
 import Nav from '../../components/Nav/Nav'
 import SearchBar from '../../components/SearchBar/SearchBar'
 import ContactListButton from '../../components/ContactListButton/ContactListButton'
@@ -15,7 +15,7 @@ const ContactList = () => {
   return (
     <div>
       {addContactModalOpen && (
-        <NewContact setAddContactModalOpen={setAddContactModalOpen} />
+        <ContactForm setAddContactModalOpen={setAddContactModalOpen} />
       )}
       <Nav
         prevButtonText="&larr;"

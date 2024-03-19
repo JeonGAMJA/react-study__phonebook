@@ -18,9 +18,8 @@ function App() {
       <Routes>
         <Route path="/" element={<Layout />}>
           <Route index element={<ContactList />} />
-          <Route path=":contactId" element={<ContactDetail />}>
-            <Route path="edit" element={<EditContact />} />
-          </Route>
+          <Route path=":contactId" element={<ContactDetail />} />
+          <Route path=":contactId/edit" element={<EditContact />} />
         </Route>
       </Routes>
     </Router>

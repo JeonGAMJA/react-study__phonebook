@@ -4,12 +4,16 @@ import storage from 'redux-persist/lib/storage'
 import { persistReducer } from 'redux-persist'
 import logger from 'redux-logger'
 
+const reducers = combineReducers({
+  contactList: contactReducer,
+})
+
 const persistConfig = {
   key: 'root',
   storage,
 }
 
-const persistedReducer = persistReducer(persistConfig, contactReducer)
+const persistedReducer = persistReducer(persistConfig, reducers)
 
 const store = configureStore({
   reducer: persistedReducer,

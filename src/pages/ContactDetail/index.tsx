@@ -1,11 +1,32 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import Nav from '../../components/Nav/Nav'
 import ProfileImg from '../../components/ProfileImg/ProfileImg'
+import { useNavigate, useParams } from 'react-router-dom'
+import { useSelector } from 'react-redux'
+import { RootState } from '../../app/store'
+import { Profile } from '../../redux/contactSlice'
 
 const ContactDetail = () => {
+  const { contactId } = useParams<{ contactId: string }>()
+  const contacts = useSelector((state: RootState) => state.contactList.contacts)
+  const contact: Profile | undefined = contacts.find(
+    (contact) => contact.id === contactId,
+  )
+  const navigate = useNavigate()
+
+  if (!contact) {
+    return <div>Contact not found</div>
+  }
+
+  const { firstName, lastName, office, phoneNumber, adress } = contact
+
+  const handleEditButton = () => {
+    navigate(`/${contactId}/edit`, { state: { ...contact } })
+  }
+
   return (
     <div>
-      <Nav />
+      <Nav prevButtonText="&larr;" buttonText="편집" onButtonClick={handleEditButton} />
       <div>
         <ProfileImg />
         <span>{office}</span>
