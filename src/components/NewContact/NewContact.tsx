@@ -1,5 +1,5 @@
-import React, { ChangeEvent, forwardRef, useRef, useState } from 'react'
-import Nav from '../../components/Nav/Nav'
+import React, { ChangeEvent, useRef, useState } from 'react'
+import Nav from '../Nav/Nav'
 import { useDispatch } from 'react-redux'
 
 import { addContact } from '../../redux/contactSlice'
@@ -9,7 +9,7 @@ interface NewContactProps {
 }
 const NewContact = ({ setAddContactModalOpen }: NewContactProps) => {
   const dispatch = useDispatch()
-  const modalBackground = useRef()
+  const modalBackground = useRef<HTMLDivElement>(null)
 
   const handleCloseModal = (e: React.MouseEvent) => {
     if (e.target === modalBackground.current) {
@@ -51,6 +51,7 @@ const NewContact = ({ setAddContactModalOpen }: NewContactProps) => {
 
   return (
     <div
+      ref={modalBackground}
       onClick={handleCloseModal}
       style={{ position: 'relative', width: '100vw', height: '100vh' }}
     >

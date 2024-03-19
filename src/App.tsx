@@ -1,30 +1,29 @@
-import { useState } from 'react'
+import { Outlet, BrowserRouter as Router, Route, Routes } from 'react-router-dom'
 import './App.css'
-import Nav from './components/Nav/Nav'
-import SearchBar from './components/SearchBar/SearchBar'
-import ContactList from './pages/ContactList/ContactList'
-import NewContact from './pages/NewContact/NewContact'
+import ContactList from './pages/ContactList'
+import ContactDetail from './pages/ContactDetail'
+import EditContact from './pages/EditContact'
+
+const Layout = () => {
+  return (
+    <>
+      <Outlet />
+    </>
+  )
+}
 
 function App() {
-  const [addContactModalOpen, setAddContactModalOpen] = useState(false)
-
-  const handleAddContactButton = () => {
-    setAddContactModalOpen(true)
-  }
-
   return (
-    <div>
-      {addContactModalOpen && (
-        <NewContact setAddContactModalOpen={setAddContactModalOpen} />
-      )}
-      <Nav
-        prevButtonText="&larr;"
-        buttonText="+"
-        onButtonClick={handleAddContactButton}
-      />
-      <SearchBar />
-      <ContactList />
-    </div>
+    <Router>
+      <Routes>
+        <Route path="/" element={<Layout />}>
+          <Route index element={<ContactList />} />
+          <Route path=":contactId" element={<ContactDetail />}>
+            <Route path="edit" element={<EditContact />} />
+          </Route>
+        </Route>
+      </Routes>
+    </Router>
   )
 }
 

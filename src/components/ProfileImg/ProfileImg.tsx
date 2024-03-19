@@ -1,7 +1,11 @@
 import React from 'react'
 
 const ProfileImg = () => {
-  return <div>ProfileImg</div>
+  return (
+    <div>
+      <p></p>
+    </div>
+  )
 }
 
 export default ProfileImg
