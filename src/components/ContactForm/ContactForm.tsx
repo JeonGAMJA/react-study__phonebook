@@ -1,20 +1,25 @@
-import React, { ChangeEvent, useRef, useState } from 'react';
+import React, { ChangeEvent, useEffect, useRef, useState } from 'react';
 import Nav from '../Nav/Nav';
-import { useDispatch } from 'react-redux';
-
-import { addContact } from '../../redux/contactSlice';
+import { Profile } from '../../redux/contactSlice';
 
 interface NewContactProps {
-  setAddContactModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  setAddContactModalOpen?: React.Dispatch<React.SetStateAction<boolean>>;
+  mode: string;
+  contact?: Profile;
+  handleSubmit: (profileInfo: Profile) => void;
 }
 
-const ContactForm = ({ setAddContactModalOpen }: NewContactProps) => {
-  const dispatch = useDispatch();
+const ContactForm = ({
+  setAddContactModalOpen,
+  mode,
+  contact,
+  handleSubmit,
+}: NewContactProps) => {
   const modalBackground = useRef<HTMLDivElement>(null);
 
   const handleCloseModal = (e: React.MouseEvent) => {
     if (e.target === modalBackground.current) {
-      setAddContactModalOpen(false);
+      setAddContactModalOpen ? setAddContactModalOpen(false) : null;
     }
   };
 
@@ -26,6 +31,24 @@ const ContactForm = ({ setAddContactModalOpen }: NewContactProps) => {
     adress: '',
   });
 
+  useEffect(() => {
+    mode === 'edit'
+      ? setProfileInfo({
+          firstName: contact?.firstName ?? '',
+          lastName: contact?.lastName ?? '',
+          office: contact?.office ?? '',
+          phoneNumber: contact?.phoneNumber ?? 0,
+          adress: contact?.adress ?? '',
+        })
+      : setProfileInfo({
+          firstName: '',
+          lastName: '',
+          office: '',
+          phoneNumber: 0,
+          adress: '',
+        });
+  }, [mode]);
+
   const { firstName, lastName, office, phoneNumber, adress } = profileInfo;
 
   const profileInputChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -36,18 +59,9 @@ const ContactForm = ({ setAddContactModalOpen }: NewContactProps) => {
     });
   };
 
-  const handleNewContactSubmit = (e: React.FormEvent<HTMLElement>) => {
+  const handleFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    dispatch(
-      addContact({
-        firstName: firstName,
-        lastName: lastName,
-        office: office,
-        phoneNumber: phoneNumber,
-        adress: adress,
-      }),
-    );
-    setAddContactModalOpen(false);
+    handleSubmit(profileInfo);
   };
 
   return (
@@ -68,15 +82,10 @@ const ContactForm = ({ setAddContactModalOpen }: NewContactProps) => {
         }}
       >
         <form
-          onSubmit={handleNewContactSubmit}
+          onSubmit={handleFormSubmit}
           style={{ display: 'flex', flexDirection: 'column' }}
         >
-          <Nav
-            onButtonClick={handleNewContactSubmit}
-            prevButtonText="취소"
-            buttonText="완료"
-            buttonType="submit"
-          />
+          <Nav prevButtonText="취소" buttonText="완료" buttonType="submit" />
           <div
             style={{
               display: 'flex',
@@ -135,6 +144,7 @@ const ContactForm = ({ setAddContactModalOpen }: NewContactProps) => {
             onChange={profileInputChange}
           />
         </form>
+        {mode === 'edit' ? <button>삭제하기</button> : null}
       </div>
     </div>
   );

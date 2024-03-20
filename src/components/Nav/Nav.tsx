@@ -1,10 +1,10 @@
-import React from 'react'
+import React from 'react';
 
 interface NavProps {
-  onButtonClick: React.MouseEventHandler<HTMLButtonElement>
-  prevButtonText: string
-  buttonText: string
-  buttonType?: 'button' | 'submit' | 'reset' | undefined
+  onButtonClick?: React.MouseEventHandler<HTMLButtonElement>;
+  prevButtonText: string;
+  buttonText: string;
+  buttonType?: 'button' | 'submit' | 'reset';
 }
 
 const Nav = ({ onButtonClick, prevButtonText, buttonText, buttonType }: NavProps) => {
@@ -15,7 +15,7 @@ const Nav = ({ onButtonClick, prevButtonText, buttonText, buttonType }: NavProps
         {buttonText}
       </button>
     </div>
-  )
-}
+  );
+};
 
-export default Nav
+export default Nav;

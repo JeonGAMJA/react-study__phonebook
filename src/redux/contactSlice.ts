@@ -34,7 +34,9 @@ export const contactSlice = createSlice({
       state.contacts.push(profile);
     },
     deleteContact: (state, action) => {},
-    editContact: (state, action) => {},
+    editContact: (state, action: PayloadAction<Profile>) => {
+      console.log(action.payload);
+    },
   },
 });
 
