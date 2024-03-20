@@ -4,9 +4,9 @@ import Nav from '../../components/Nav/Nav'
 import ProfileImg from '../../components/ProfileImg/ProfileImg'
 
 const EditContact = () => {
-  const contact = useLocation().state.contact
-  const { firstName, lastName, office, phoneNumber, adress, id } = contact
-
+  const contact = useLocation().state
+  console.log(contact)
+  // const { firstName, lastName, office, phoneNumber, adress, id } = contact
   const handleSaveChange = () => {
     console.log('변경완료')
   }

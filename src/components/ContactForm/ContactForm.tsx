@@ -1,22 +1,22 @@
-import React, { ChangeEvent, useRef, useState } from 'react'
-import Nav from '../Nav/Nav'
-import { useDispatch } from 'react-redux'
+import React, { ChangeEvent, useRef, useState } from 'react';
+import Nav from '../Nav/Nav';
+import { useDispatch } from 'react-redux';
 
-import { addContact } from '../../redux/contactSlice'
+import { addContact } from '../../redux/contactSlice';
 
 interface NewContactProps {
-  setAddContactModalOpen: React.Dispatch<React.SetStateAction<boolean>>
+  setAddContactModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const ContactForm = ({ setAddContactModalOpen }: NewContactProps) => {
-  const dispatch = useDispatch()
-  const modalBackground = useRef<HTMLDivElement>(null)
+  const dispatch = useDispatch();
+  const modalBackground = useRef<HTMLDivElement>(null);
 
   const handleCloseModal = (e: React.MouseEvent) => {
     if (e.target === modalBackground.current) {
-      setAddContactModalOpen(false)
+      setAddContactModalOpen(false);
     }
-  }
+  };
 
   const [profileInfo, setProfileInfo] = useState({
     firstName: '',
@@ -24,20 +24,20 @@ const ContactForm = ({ setAddContactModalOpen }: NewContactProps) => {
     office: '',
     phoneNumber: 0,
     adress: '',
-  })
+  });
 
-  const { firstName, lastName, office, phoneNumber, adress } = profileInfo
+  const { firstName, lastName, office, phoneNumber, adress } = profileInfo;
 
   const profileInputChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const { value, name } = e.target
+    const { value, name } = e.target;
     setProfileInfo({
       ...profileInfo,
       [name]: value,
-    })
-  }
+    });
+  };
 
   const handleNewContactSubmit = (e: React.FormEvent<HTMLElement>) => {
-    e.preventDefault()
+    e.preventDefault();
     dispatch(
       addContact({
         firstName: firstName,
@@ -46,9 +46,9 @@ const ContactForm = ({ setAddContactModalOpen }: NewContactProps) => {
         phoneNumber: phoneNumber,
         adress: adress,
       }),
-    )
-    setAddContactModalOpen(false)
-  }
+    );
+    setAddContactModalOpen(false);
+  };
 
   return (
     <div
@@ -137,7 +137,7 @@ const ContactForm = ({ setAddContactModalOpen }: NewContactProps) => {
         </form>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default ContactForm
+export default ContactForm;

@@ -1,17 +1,17 @@
-import { Outlet, BrowserRouter as Router, Route, Routes } from 'react-router-dom'
-import './App.css'
-import ContactList from './pages/ContactList'
-import ContactDetail from './pages/ContactDetail'
-import EditContact from './pages/EditContact'
+import { Outlet, BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import './App.css';
+import ContactList from './pages/ContactList';
+import ContactDetail from './pages/ContactDetail';
+import EditContact from './pages/EditContact';
 
 const Layout = () => {
   return (
     <>
       <Outlet />
     </>
-  )
-}
-
+  );
+};
+//CreateBrowserRouter
 function App() {
   return (
     <Router>
@@ -23,7 +23,7 @@ function App() {
         </Route>
       </Routes>
     </Router>
-  )
+  );
 }
 
-export default App
+export default App;
