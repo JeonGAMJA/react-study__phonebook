@@ -8,10 +8,6 @@ const ContactListButton = () => {
   const contacts = useSelector((state: RootState) => state.contactList.contacts);
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    dispatch(sortContactsByName(contacts));
-  }, []);
-
   return (
     <div>
       <ul>
