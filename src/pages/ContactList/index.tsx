@@ -41,6 +41,7 @@ const ContactList = () => {
         prevButtonText="&larr;"
         buttonText="+"
         onButtonClick={handleAddContactButton}
+        mode=""
       />
       <SearchBar />
       <ContactListButton />

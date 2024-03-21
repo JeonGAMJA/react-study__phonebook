@@ -6,15 +6,32 @@ interface NavProps {
   prevButtonText: string;
   buttonText: string;
   buttonType?: 'button' | 'submit' | 'reset';
-  handlePrevButton?: React.MouseEventHandler<HTMLButtonElement>;
+  mode: string;
+  id?: string;
 }
 const Nav = ({
   onButtonClick,
   prevButtonText,
   buttonText,
   buttonType,
-  handlePrevButton,
+  mode,
+  id,
 }: NavProps) => {
+  const navigate = useNavigate();
+
+  const handlePrevButton = () => {
+    if (mode === 'edit') {
+      console.log(mode);
+      navigate(`/${id}`);
+      mode = '';
+      console.log(mode);
+    } else {
+      console.log(mode);
+      navigate(`/`);
+      mode = '';
+      console.log(mode);
+    }
+  };
   return (
     <div style={{ display: 'flex', justifyContent: 'space-between' }}>
       <button onClick={handlePrevButton}>{prevButtonText}</button>

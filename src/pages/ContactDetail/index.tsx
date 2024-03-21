@@ -1,32 +1,37 @@
-import React, { useEffect } from 'react'
-import Nav from '../../components/Nav/Nav'
-import ProfileImg from '../../components/ProfileImg/ProfileImg'
-import { useNavigate, useParams } from 'react-router-dom'
-import { useSelector } from 'react-redux'
-import { RootState } from '../../app/store'
-import { Profile } from '../../redux/contactSlice'
+import React, { useEffect } from 'react';
+import Nav from '../../components/Nav/Nav';
+import ProfileImg from '../../components/ProfileImg/ProfileImg';
+import { useNavigate, useParams } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../app/store';
+import { Profile } from '../../redux/contactSlice';
 
 const ContactDetail = () => {
-  const { contactId } = useParams<{ contactId: string }>()
-  const contacts = useSelector((state: RootState) => state.contactList.contacts)
+  const { contactId } = useParams<{ contactId: string }>();
+  const contacts = useSelector((state: RootState) => state.contactList.contacts);
   const contact: Profile | undefined = contacts.find(
     (contact) => contact.id === contactId,
-  )
-  const navigate = useNavigate()
+  );
+  const navigate = useNavigate();
 
   if (!contact) {
-    return <div>Contact not found</div>
+    return <div>Contact not found</div>;
   }
 
-  const { firstName, lastName, office, phoneNumber, adress } = contact
+  const { firstName, lastName, office, phoneNumber, adress } = contact;
 
   const handleEditButton = () => {
-    navigate(`/${contactId}/edit`, { state: { ...contact } })
-  }
+    navigate(`/${contactId}/edit`, { state: { ...contact } });
+  };
 
   return (
     <div>
-      <Nav prevButtonText="&larr;" buttonText="편집" onButtonClick={handleEditButton} />
+      <Nav
+        prevButtonText="&larr;"
+        buttonText="편집"
+        onButtonClick={handleEditButton}
+        mode=""
+      />
       <div>
         <ProfileImg />
         <span>{office}</span>
@@ -49,7 +54,7 @@ const ContactDetail = () => {
         </div>
       </section>
     </div>
-  )
-}
+  );
+};
 
-export default ContactDetail
+export default ContactDetail;

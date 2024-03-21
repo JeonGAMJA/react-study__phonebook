@@ -70,16 +70,6 @@ const ContactForm = ({
     handleSubmit(profileInfo);
   };
 
-  const handlePrevButton = () => {
-    if (mode === 'edit') {
-      navigate(`/${profileInfo.id}`);
-      mode = '';
-    } else if (mode === 'create') {
-      navigate(`/`);
-      mode = '';
-    }
-  };
-
   return (
     <div
       ref={modalBackground}
@@ -105,7 +95,8 @@ const ContactForm = ({
             prevButtonText="취소"
             buttonText="완료"
             buttonType="submit"
-            handlePrevButton={handlePrevButton}
+            mode={mode}
+            id={profileInfo.id}
           />
           <div
             style={{
@@ -165,7 +156,7 @@ const ContactForm = ({
             onChange={profileInputChange}
           />
         </form>
-        {mode === 'edit' ? <DeleteButton id={contact?.id} /> : null}
+        {mode === 'edit' ? <DeleteButton id={profileInfo.id} /> : null}
       </div>
     </div>
   );
