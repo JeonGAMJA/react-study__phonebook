@@ -2,6 +2,7 @@ import React, { ChangeEvent, useEffect, useRef, useState } from 'react';
 import Nav from '../Nav/Nav';
 import { Profile, deleteContact } from '../../redux/contactSlice';
 import DeleteButton from '../DeleteButton';
+import { useNavigate } from 'react-router-dom';
 
 interface NewContactProps {
   setAddContactModalOpen?: React.Dispatch<React.SetStateAction<boolean>>;
@@ -17,6 +18,7 @@ const ContactForm = ({
   handleSubmit,
 }: NewContactProps) => {
   const modalBackground = useRef<HTMLDivElement>(null);
+  const navigate = useNavigate();
 
   const handleCloseModal = (e: React.MouseEvent) => {
     if (e.target === modalBackground.current) {
@@ -67,7 +69,9 @@ const ContactForm = ({
     e.preventDefault();
     handleSubmit(profileInfo);
   };
-
+  const handlePrevButton = () => {
+    mode === 'edit' ? navigate(`/${profileInfo.id}`) : navigate(`/`);
+  };
   return (
     <div
       ref={modalBackground}
@@ -89,7 +93,12 @@ const ContactForm = ({
           onSubmit={handleFormSubmit}
           style={{ display: 'flex', flexDirection: 'column' }}
         >
-          <Nav prevButtonText="취소" buttonText="완료" buttonType="submit" />
+          <Nav
+            prevButtonText="취소"
+            buttonText="완료"
+            buttonType="submit"
+            handlePrevButton={handlePrevButton}
+          />
           <div
             style={{
               display: 'flex',

@@ -1,11 +1,12 @@
 import React from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import ContactForm from '../../components/ContactForm/ContactForm';
 import { useDispatch } from 'react-redux';
 import { Profile, editContact } from '../../redux/contactSlice';
 
 const EditContact = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const contact = useLocation().state;
 
   const handleEditProfile = (profileInfo: Profile) => {
@@ -19,6 +20,7 @@ const EditContact = () => {
         id: profileInfo.id,
       }),
     );
+    navigate(`/${contact.id}`);
   };
 
   return (
