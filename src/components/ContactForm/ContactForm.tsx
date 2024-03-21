@@ -69,9 +69,17 @@ const ContactForm = ({
     e.preventDefault();
     handleSubmit(profileInfo);
   };
+
   const handlePrevButton = () => {
-    mode === 'edit' ? navigate(`/${profileInfo.id}`) : navigate(`/`);
+    if (mode === 'edit') {
+      navigate(`/${profileInfo.id}`);
+      mode = '';
+    } else if (mode === 'create') {
+      navigate(`/`);
+      mode = '';
+    }
   };
+
   return (
     <div
       ref={modalBackground}

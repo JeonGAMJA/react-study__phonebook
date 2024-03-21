@@ -1,12 +1,12 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 interface NavProps {
   onButtonClick?: React.MouseEventHandler<HTMLButtonElement>;
   prevButtonText: string;
   buttonText: string;
   buttonType?: 'button' | 'submit' | 'reset';
-  handlePrevButton: React.MouseEventHandler<HTMLButtonElement>;
+  handlePrevButton?: React.MouseEventHandler<HTMLButtonElement>;
 }
 const Nav = ({
   onButtonClick,
