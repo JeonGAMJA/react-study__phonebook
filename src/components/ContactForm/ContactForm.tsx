@@ -1,6 +1,7 @@
 import React, { ChangeEvent, useEffect, useRef, useState } from 'react';
 import Nav from '../Nav/Nav';
-import { Profile } from '../../redux/contactSlice';
+import { Profile, deleteContact } from '../../redux/contactSlice';
+import DeleteButton from '../DeleteButton';
 
 interface NewContactProps {
   setAddContactModalOpen?: React.Dispatch<React.SetStateAction<boolean>>;
@@ -29,6 +30,7 @@ const ContactForm = ({
     office: '',
     phoneNumber: 0,
     adress: '',
+    id: '',
   });
 
   useEffect(() => {
@@ -39,6 +41,7 @@ const ContactForm = ({
           office: contact?.office ?? '',
           phoneNumber: contact?.phoneNumber ?? 0,
           adress: contact?.adress ?? '',
+          id: contact?.id ?? '',
         })
       : setProfileInfo({
           firstName: '',
@@ -46,6 +49,7 @@ const ContactForm = ({
           office: '',
           phoneNumber: 0,
           adress: '',
+          id: '',
         });
   }, [mode]);
 
@@ -144,7 +148,7 @@ const ContactForm = ({
             onChange={profileInputChange}
           />
         </form>
-        {mode === 'edit' ? <button>삭제하기</button> : null}
+        {mode === 'edit' ? <DeleteButton id={contact?.id} /> : null}
       </div>
     </div>
   );

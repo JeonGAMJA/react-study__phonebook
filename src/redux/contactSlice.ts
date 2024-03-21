@@ -33,9 +33,13 @@ export const contactSlice = createSlice({
       };
       state.contacts.push(profile);
     },
-    deleteContact: (state, action) => {},
+    deleteContact: (state, action) => {
+      state.contacts = state.contacts.filter((contact) => contact.id !== action.payload);
+    },
     editContact: (state, action: PayloadAction<Profile>) => {
-      console.log(action.payload);
+      state.contacts = state.contacts.map((contact) =>
+        contact.id === action.payload.id ? action.payload : contact,
+      );
     },
   },
 });
