@@ -21,15 +21,11 @@ const Nav = ({
 
   const handlePrevButton = () => {
     if (mode === 'edit') {
-      console.log(mode);
       navigate(`/${id}`);
       mode = '';
-      console.log(mode);
     } else {
-      console.log(mode);
       navigate(`/`);
       mode = '';
-      console.log(mode);
     }
   };
   return (

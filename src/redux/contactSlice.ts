@@ -41,9 +41,15 @@ export const contactSlice = createSlice({
         contact.id === action.payload.id ? action.payload : contact,
       );
     },
+    sortContactsByName: (state, action) => {
+      state.contacts = [...action.payload].sort((a: any, b: any) =>
+        a.lastName < b.lastName ? -1 : a.lastName > b.lastName ? 1 : 0,
+      );
+    },
   },
 });
 
-export const { addContact, deleteContact, editContact } = contactSlice.actions;
+export const { addContact, deleteContact, editContact, sortContactsByName } =
+  contactSlice.actions;
 
 export default contactSlice.reducer;
