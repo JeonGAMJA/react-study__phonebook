@@ -1,13 +1,13 @@
-import { PayloadAction, createSlice } from '@reduxjs/toolkit';
-import uuid from 'react-uuid';
+import { PayloadAction, createSlice } from "@reduxjs/toolkit";
+import uuid from "react-uuid";
 
 export interface Profile {
   firstName?: string;
   lastName: string;
   office?: string;
   phoneNumber: number;
-  adress?: string;
-  id?: string;
+  address?: string;
+  id: string;
 }
 
 export interface ContactState {
@@ -19,7 +19,7 @@ const initialState: ContactState = {
 };
 
 export const contactSlice = createSlice({
-  name: 'contacts',
+  name: "contacts",
   initialState,
   reducers: {
     addContact: (state, action: PayloadAction<Profile>) => {
@@ -28,23 +28,25 @@ export const contactSlice = createSlice({
         lastName: action.payload.lastName,
         office: action.payload.office,
         phoneNumber: action.payload.phoneNumber,
-        adress: action.payload.adress,
-        id: uuid(),
+        address: action.payload.address,
+        id: action.payload.id,
       };
       state.contacts.push(profile);
       state.contacts.sort((a: any, b: any) =>
-        a.lastName < b.lastName ? -1 : a.lastName > b.lastName ? 1 : 0,
+        a.lastName < b.lastName ? -1 : a.lastName > b.lastName ? 1 : 0
       );
     },
     deleteContact: (state, action) => {
-      state.contacts = state.contacts.filter((contact) => contact.id !== action.payload);
+      state.contacts = state.contacts.filter(
+        (contact) => contact.id !== action.payload
+      );
     },
     editContact: (state, action: PayloadAction<Profile>) => {
       state.contacts = state.contacts.map((contact) =>
-        contact.id === action.payload.id ? action.payload : contact,
+        contact.id === action.payload.id ? action.payload : contact
       );
       state.contacts.sort((a: any, b: any) =>
-        a.lastName < b.lastName ? -1 : a.lastName > b.lastName ? 1 : 0,
+        a.lastName < b.lastName ? -1 : a.lastName > b.lastName ? 1 : 0
       );
     },
   },

@@ -1,15 +1,16 @@
-import { Outlet, BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import './App.css';
-import ContactList from './pages/ContactList';
-import ContactDetail from './pages/ContactDetail';
-import EditContact from './pages/EditContact';
+import {
+  Outlet,
+  Route,
+  BrowserRouter as Router,
+  Routes,
+} from "react-router-dom";
+import "./App.css";
+import ContactDetail from "./pages/ContactDetail";
+import ContactList from "./pages/ContactList";
+import EditContact from "./pages/EditContact";
 
 const Layout = () => {
-  return (
-    <>
-      <Outlet />
-    </>
-  );
+  return <Outlet />;
 };
 //CreateBrowserRouter
 function App() {
@@ -18,8 +19,10 @@ function App() {
       <Routes>
         <Route path="/" element={<Layout />}>
           <Route index element={<ContactList />} />
-          <Route path=":contactId" element={<ContactDetail />} />
-          <Route path=":contactId/edit" element={<EditContact />} />
+          <Route path="/:contactId">
+            <Route index element={<ContactDetail />} />
+            <Route path="/:contactId/edit" element={<EditContact />} />
+          </Route>
         </Route>
       </Routes>
     </Router>

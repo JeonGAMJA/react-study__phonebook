@@ -1,39 +1,31 @@
-import React from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import React from "react";
+import { Link, useNavigate } from "react-router-dom";
 
 interface NavProps {
+  customButton: React.ReactNode;
   onButtonClick?: React.MouseEventHandler<HTMLButtonElement>;
   prevButtonText: string;
   buttonText: string;
-  buttonType?: 'button' | 'submit' | 'reset';
+  buttonType?: "button" | "submit" | "reset";
   mode: string;
   id?: string;
 }
-const Nav = ({
-  onButtonClick,
-  prevButtonText,
-  buttonText,
-  buttonType,
-  mode,
-  id,
-}: NavProps) => {
+const Nav = ({ customButton, prevButtonText, mode, id }: NavProps) => {
   const navigate = useNavigate();
 
   const handlePrevButton = () => {
-    if (mode === 'edit') {
+    if (mode === "edit") {
       navigate(`/${id}`);
-      mode = '';
+      mode = "";
     } else {
       navigate(`/`);
-      mode = '';
+      mode = "";
     }
   };
   return (
-    <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+    <div style={{ display: "flex", justifyContent: "space-between" }}>
       <button onClick={handlePrevButton}>{prevButtonText}</button>
-      <button type={buttonType} onClick={onButtonClick}>
-        {buttonText}
-      </button>
+      {customButton}
     </div>
   );
 };

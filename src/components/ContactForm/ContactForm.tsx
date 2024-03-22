@@ -1,7 +1,8 @@
-import React, { ChangeEvent, useEffect, useRef, useState } from 'react';
-import Nav from '../Nav/Nav';
-import { Profile, deleteContact } from '../../redux/contactSlice';
-import DeleteButton from '../DeleteButton';
+import React, { ChangeEvent, useEffect, useRef, useState } from "react";
+import Nav from "../Nav/Nav";
+import { Profile, deleteContact } from "../../redux/contactSlice";
+import DeleteButton from "../DeleteButton";
+import uuid from "react-uuid";
 
 interface NewContactProps {
   setAddContactModalOpen?: React.Dispatch<React.SetStateAction<boolean>>;
@@ -10,6 +11,15 @@ interface NewContactProps {
   handleSubmit: (profileInfo: Profile) => void;
 }
 
+const initialState: Profile = {
+  firstName: "",
+  lastName: "",
+  office: "",
+  phoneNumber: 0,
+  address: "",
+  id: "",
+};
+
 const ContactForm = ({
   setAddContactModalOpen,
   mode,
@@ -17,49 +27,29 @@ const ContactForm = ({
   handleSubmit,
 }: NewContactProps) => {
   const modalBackground = useRef<HTMLDivElement>(null);
+  const [profileInfo, setProfileInfo] = useState(
+    contact ?? { ...initialState, id: uuid() }
+  );
+  const { firstName, lastName, office, phoneNumber, address } = profileInfo;
 
   const handleCloseModal = (e: React.MouseEvent) => {
     if (e.target === modalBackground.current) {
-      setAddContactModalOpen ? setAddContactModalOpen(false) : null;
+      setAddContactModalOpen?.(false);
+      // setAddContactModalOpen && setAddContactModalOpen(false)
     }
   };
 
-  const [profileInfo, setProfileInfo] = useState({
-    firstName: '',
-    lastName: '',
-    office: '',
-    phoneNumber: 0,
-    adress: '',
-    id: '',
-  });
-
-  useEffect(() => {
-    mode === 'edit'
-      ? setProfileInfo({
-          firstName: contact?.firstName ?? '',
-          lastName: contact?.lastName ?? '',
-          office: contact?.office ?? '',
-          phoneNumber: contact?.phoneNumber ?? 0,
-          adress: contact?.adress ?? '',
-          id: contact?.id ?? '',
-        })
-      : setProfileInfo({
-          firstName: '',
-          lastName: '',
-          office: '',
-          phoneNumber: 0,
-          adress: '',
-          id: '',
-        });
-  }, [mode]);
-
-  const { firstName, lastName, office, phoneNumber, adress } = profileInfo;
-
   const profileInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { value, name } = e.target;
-    setProfileInfo({
-      ...profileInfo,
-      [name]: value,
+
+    // setState
+    // 1. 다음 상태 그 자체
+    // 2. 이전값을 인자로 받고 다음 상태를 반환하는 콜백함수
+    setProfileInfo((prev) => {
+      return {
+        ...prev,
+        [name]: value,
+      };
     });
   };
 
@@ -72,51 +62,56 @@ const ContactForm = ({
     <div
       ref={modalBackground}
       onClick={handleCloseModal}
-      style={{ position: 'relative', width: '100vw', height: '100vh' }}
+      style={{ position: "relative", width: "100vw", height: "100vh" }}
     >
       <div
         style={{
-          position: 'absolute',
+          position: "absolute",
           width: `20%`,
-          height: '80%',
+          height: "80%",
           zIndex: 2000,
-          backgroundColor: 'rgba(0,0,0,0.5)',
-          left: '40vw',
-          top: '10vh',
+          backgroundColor: "rgba(0,0,0,0.5)",
+          left: "40vw",
+          top: "10vh",
         }}
       >
         <form
           onSubmit={handleFormSubmit}
-          style={{ display: 'flex', flexDirection: 'column' }}
+          style={{ display: "flex", flexDirection: "column" }}
         >
           <Nav
             prevButtonText="취소"
-            buttonText="완료"
-            buttonType="submit"
+            customButton={<button type="submit">완료</button>}
             mode={mode}
             id={profileInfo.id}
           />
           <div
             style={{
-              display: 'flex',
-              flexDirection: 'column',
-              alignItems: 'center',
-              margin: '2rem',
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              margin: "2rem",
             }}
           >
             <img
               style={{
-                backgroundColor: 'lightgray',
-                width: '7rem',
-                height: '7rem',
-                borderRadius: '50%',
-                marginBottom: '1rem',
+                backgroundColor: "lightgray",
+                width: "7rem",
+                height: "7rem",
+                borderRadius: "50%",
+                marginBottom: "1rem",
               }}
             />
             <button type="button">사진추가</button>
           </div>
 
-          <div style={{ display: 'flex', flexDirection: 'column', marginBottom: '2rem' }}>
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              marginBottom: "2rem",
+            }}
+          >
             <input
               type="text"
               name="lastName"
@@ -148,13 +143,13 @@ const ContactForm = ({
           />
           <input
             type="text"
-            name="adress"
+            name="address"
             placeholder="주소"
-            value={adress}
+            value={address}
             onChange={profileInputChange}
           />
         </form>
-        {mode === 'edit' ? <DeleteButton id={profileInfo.id} /> : null}
+        {mode === "edit" ? <DeleteButton id={profileInfo.id} /> : null}
       </div>
     </div>
   );

@@ -1,5 +1,5 @@
-import React, { ChangeEvent, useState } from 'react';
-import { Profile } from '../../redux/contactSlice';
+import React, { ChangeEvent, useState } from "react";
+import { Profile } from "../../redux/contactSlice";
 
 interface SearchBarProps {
   contacts: Profile[];
@@ -7,7 +7,7 @@ interface SearchBarProps {
 }
 
 const SearchBar = ({ contacts, searchContacts }: SearchBarProps) => {
-  const [searchInput, setSearchInput] = useState('');
+  const [searchInput, setSearchInput] = useState("");
 
   const handleSearch = (e: ChangeEvent<HTMLInputElement>) => {
     setSearchInput(e.target.value);
@@ -16,7 +16,7 @@ const SearchBar = ({ contacts, searchContacts }: SearchBarProps) => {
 
   return (
     <>
-      <div>
+      <div style={{ width: 300, alignSelf: "center" }}>
         <input onChange={handleSearch} value={searchInput} />
       </div>
     </>

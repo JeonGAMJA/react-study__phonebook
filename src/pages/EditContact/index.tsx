@@ -1,8 +1,8 @@
-import React from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
-import ContactForm from '../../components/ContactForm/ContactForm';
-import { useDispatch } from 'react-redux';
-import { Profile, editContact } from '../../redux/contactSlice';
+import React from "react";
+import { useLocation, useNavigate } from "react-router-dom";
+import ContactForm from "../../components/ContactForm/ContactForm";
+import { useDispatch } from "react-redux";
+import { Profile, editContact } from "../../redux/contactSlice";
 
 const EditContact = () => {
   const dispatch = useDispatch();
@@ -16,16 +16,20 @@ const EditContact = () => {
         lastName: profileInfo.lastName,
         office: profileInfo.office,
         phoneNumber: profileInfo.phoneNumber,
-        adress: profileInfo.adress,
+        address: profileInfo.address,
         id: profileInfo.id,
-      }),
+      })
     );
     navigate(`/${contact.id}`);
   };
 
   return (
     <div>
-      <ContactForm mode="edit" contact={contact} handleSubmit={handleEditProfile} />
+      <ContactForm
+        mode="edit"
+        contact={contact}
+        handleSubmit={handleEditProfile}
+      />
     </div>
   );
 };

@@ -1,15 +1,17 @@
-import React from 'react';
-import { useState } from 'react';
-import ContactForm from '../../components/ContactForm/ContactForm';
-import Nav from '../../components/Nav/Nav';
-import SearchBar from '../../components/SearchBar/SearchBar';
-import ContactListButton from '../../components/ContactListButton/ContactListButton';
-import { useDispatch, useSelector } from 'react-redux';
-import { Profile, addContact } from '../../redux/contactSlice';
-import { RootState } from '@reduxjs/toolkit/query';
+import React from "react";
+import { useState } from "react";
+import ContactForm from "../../components/ContactForm/ContactForm";
+import Nav from "../../components/Nav/Nav";
+import SearchBar from "../../components/SearchBar/SearchBar";
+import ContactListButton from "../../components/ContactListButton/ContactListButton";
+import { useDispatch, useSelector } from "react-redux";
+import { Profile, addContact } from "../../redux/contactSlice";
+import { RootState } from "@reduxjs/toolkit/query";
 
 const ContactList = () => {
-  const contacts = useSelector((state: RootState) => state.contactList.contacts);
+  const contacts = useSelector(
+    (state: RootState) => state.contactList.contacts
+  );
   const dispatch = useDispatch();
   const [addContactModalOpen, setAddContactModalOpen] = useState(false);
 
@@ -18,21 +20,24 @@ const ContactList = () => {
   };
 
   const handleSubmit = (profileInfo: Profile) => {
-    dispatch(
-      addContact({
-        firstName: profileInfo.firstName,
-        lastName: profileInfo.lastName,
-        office: profileInfo.office,
-        phoneNumber: profileInfo.phoneNumber,
-        adress: profileInfo.adress,
-      }),
-    );
+    dispatch(addContact(profileInfo));
     setAddContactModalOpen ? setAddContactModalOpen(false) : null;
   };
 
-  const searchContacts = (searchInput: string) => {};
+  const searchContacts = (searchInput: string) => {
+    return contacts.filter((contact) => {
+      const { firstName, lastName } = contact;
+
+      return `${lastName}${firstName}`
+        .replace(/ /g, "")
+        .includes(searchInput.trim().replace(/ /g, ""));
+    });
+  };
+
   return (
-    <div>
+    <div
+      style={{ display: "flex", alignItems: "center", flexDirection: "column" }}
+    >
       {addContactModalOpen && (
         <ContactForm
           setAddContactModalOpen={setAddContactModalOpen}
@@ -42,8 +47,11 @@ const ContactList = () => {
       )}
       <Nav
         prevButtonText="&larr;"
-        buttonText="+"
-        onButtonClick={handleAddContactButton}
+        customButton={
+          <button type="button" onClick={handleAddContactButton}>
+            +
+          </button>
+        }
         mode=""
       />
       <SearchBar contacts={contacts} searchContacts={searchContacts} />
