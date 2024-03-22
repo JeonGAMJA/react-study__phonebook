@@ -4,10 +4,12 @@ import ContactForm from '../../components/ContactForm/ContactForm';
 import Nav from '../../components/Nav/Nav';
 import SearchBar from '../../components/SearchBar/SearchBar';
 import ContactListButton from '../../components/ContactListButton/ContactListButton';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Profile, addContact } from '../../redux/contactSlice';
+import { RootState } from '@reduxjs/toolkit/query';
 
 const ContactList = () => {
+  const contacts = useSelector((state: RootState) => state.contactList.contacts);
   const dispatch = useDispatch();
   const [addContactModalOpen, setAddContactModalOpen] = useState(false);
 
@@ -28,6 +30,7 @@ const ContactList = () => {
     setAddContactModalOpen ? setAddContactModalOpen(false) : null;
   };
 
+  const searchContacts = (searchInput: string) => {};
   return (
     <div>
       {addContactModalOpen && (
@@ -43,8 +46,8 @@ const ContactList = () => {
         onButtonClick={handleAddContactButton}
         mode=""
       />
-      <SearchBar />
-      <ContactListButton />
+      <SearchBar contacts={contacts} searchContacts={handleSearch} />
+      <ContactListButton contacts={contacts} />
     </div>
   );
 };

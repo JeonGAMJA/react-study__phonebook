@@ -3,14 +3,16 @@ import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../app/store';
 import ContactItem from '../ContactItem/ContactItem';
 import SearchBar from '../SearchBar/SearchBar';
+import { Profile } from '../../redux/contactSlice';
 
-const ContactListButton = () => {
-  const contacts = useSelector((state: RootState) => state.contactList.contacts);
+interface ContactListButtonProps {
+  contacts: Profile[];
+  contact: Profile;
+}
 
+const ContactListButton = ({ contacts }: ContactListButtonProps) => {
   return (
     <div>
-      <SearchBar contacts={contacts} />
-
       <ul>
         {contacts.map((contact) => (
           <ContactItem
