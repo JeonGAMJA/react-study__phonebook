@@ -2,7 +2,6 @@ import React, { ChangeEvent, useEffect, useRef, useState } from 'react';
 import Nav from '../Nav/Nav';
 import { Profile, deleteContact } from '../../redux/contactSlice';
 import DeleteButton from '../DeleteButton';
-import { useNavigate } from 'react-router-dom';
 
 interface NewContactProps {
   setAddContactModalOpen?: React.Dispatch<React.SetStateAction<boolean>>;
@@ -18,7 +17,6 @@ const ContactForm = ({
   handleSubmit,
 }: NewContactProps) => {
   const modalBackground = useRef<HTMLDivElement>(null);
-  const navigate = useNavigate();
 
   const handleCloseModal = (e: React.MouseEvent) => {
     if (e.target === modalBackground.current) {

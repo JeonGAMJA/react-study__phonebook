@@ -32,6 +32,9 @@ export const contactSlice = createSlice({
         id: uuid(),
       };
       state.contacts.push(profile);
+      state.contacts.sort((a: any, b: any) =>
+        a.lastName < b.lastName ? -1 : a.lastName > b.lastName ? 1 : 0,
+      );
     },
     deleteContact: (state, action) => {
       state.contacts = state.contacts.filter((contact) => contact.id !== action.payload);
@@ -40,16 +43,13 @@ export const contactSlice = createSlice({
       state.contacts = state.contacts.map((contact) =>
         contact.id === action.payload.id ? action.payload : contact,
       );
-    },
-    sortContactsByName: (state, action) => {
-      state.contacts = [...action.payload].sort((a: any, b: any) =>
+      state.contacts.sort((a: any, b: any) =>
         a.lastName < b.lastName ? -1 : a.lastName > b.lastName ? 1 : 0,
       );
     },
   },
 });
 
-export const { addContact, deleteContact, editContact, sortContactsByName } =
-  contactSlice.actions;
+export const { addContact, deleteContact, editContact } = contactSlice.actions;
 
 export default contactSlice.reducer;

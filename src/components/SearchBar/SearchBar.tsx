@@ -1,13 +1,19 @@
-import React from 'react'
+import React from 'react';
+import { Profile } from '../../redux/contactSlice';
 
-const SearchBar = () => {
+interface SearchBarProps {
+  contacts: Profile;
+}
+
+const SearchBar = ({ contacts }) => {
   return (
     <>
       <div>
         <input />
+        <button></button>
       </div>
     </>
-  )
-}
+  );
+};
 
-export default SearchBar
+export default SearchBar;

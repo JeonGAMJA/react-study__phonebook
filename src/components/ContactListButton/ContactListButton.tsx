@@ -2,14 +2,15 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../app/store';
 import ContactItem from '../ContactItem/ContactItem';
-import { sortContactsByName } from '../../redux/contactSlice';
+import SearchBar from '../SearchBar/SearchBar';
 
 const ContactListButton = () => {
   const contacts = useSelector((state: RootState) => state.contactList.contacts);
-  const dispatch = useDispatch();
 
   return (
     <div>
+      <SearchBar contacts={contacts} />
+
       <ul>
         {contacts.map((contact) => (
           <ContactItem
