@@ -7,7 +7,6 @@ import { Profile } from '../../redux/contactSlice';
 
 interface ContactListButtonProps {
   contacts: Profile[];
-  contact: Profile;
 }
 
 const ContactListButton = ({ contacts }: ContactListButtonProps) => {

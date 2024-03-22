@@ -46,7 +46,7 @@ const ContactList = () => {
         onButtonClick={handleAddContactButton}
         mode=""
       />
-      <SearchBar contacts={contacts} searchContacts={handleSearch} />
+      <SearchBar contacts={contacts} searchContacts={searchContacts} />
       <ContactListButton contacts={contacts} />
     </div>
   );

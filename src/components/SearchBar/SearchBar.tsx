@@ -3,15 +3,15 @@ import { Profile } from '../../redux/contactSlice';
 
 interface SearchBarProps {
   contacts: Profile[];
-  searchContact: (searchInput: string) => Profile[];
+  searchContacts: (searchInput: string) => Profile[];
 }
 
-const SearchBar = ({ contacts, searchContact }: SearchBarProps) => {
+const SearchBar = ({ contacts, searchContacts }: SearchBarProps) => {
   const [searchInput, setSearchInput] = useState('');
 
   const handleSearch = (e: ChangeEvent<HTMLInputElement>) => {
     setSearchInput(e.target.value);
-    searchContact(e.target.value);
+    searchContacts(e.target.value);
   };
 
   return (
